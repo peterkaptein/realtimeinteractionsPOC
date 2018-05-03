@@ -10,7 +10,7 @@ It is written as a personal exploration of what can be done with simple means.
 ## Sharing objects
 To create the websocket connection client side, and receieve event messages, you can use:
 ```typescript
-const socketClient=new WebSocketConnector(["item:mousemove","item:textinput"],"socketclientA");
+const socketClient=new WebSocketConnector(["item:mousemove","item:textinput","person:change"],"socketclientA");
 // Open socket client and bind events from other clients to concrete actions
 socketClient
     .openWebsocket('ws://localhost:2222')
