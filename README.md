@@ -64,8 +64,8 @@ export class PersonComponent extends BaseComponent{
             // Update anything on screen, store in datastore
             this.dataBinding.process([person],Person);
 
-            // Render, using the private method defined above class
-            // This will already create the bindings
+            // Render, using the private method 
+            // This will already create the 2-way bindings
             let component=renderPersonHtml(this,person);
 
             // This will render subcompoment
@@ -73,7 +73,7 @@ export class PersonComponent extends BaseComponent{
         })
     }
 
-    // Methods to bind 
+    // Method we call from the template HTML
     public showPopup(personId){
         alert("personId="+personId);
     }
