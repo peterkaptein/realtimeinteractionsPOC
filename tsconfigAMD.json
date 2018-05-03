@@ -1,0 +1,18 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "es6",
+        "module": "AMD",
+        "sourceMap": false,
+        "outDir": "site/js/"
+    },
+    "include": [
+        "examples/**/*.ts",
+        "lib/shared/**/*.ts",
+        "lib/client/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}

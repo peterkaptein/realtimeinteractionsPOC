@@ -1,0 +1,4 @@
+# exclude everything except directory foo/bar
+/node_modules
+/src
+/site

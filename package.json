@@ -1,0 +1,27 @@
+{
+  "name": "socketserver",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "compile": "\"npm run tsc:w\"",
+    "lite": "lite-server",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^2.4.0",
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "@types/node": "^10.0.3",
+    "concurrently": "^2.0.0",
+    "jasmine-core": "^3.1.0",
+    "karma": "^2.0.2",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.2",
+    "lite-server": "^2.2.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.3"
+  }
+}
