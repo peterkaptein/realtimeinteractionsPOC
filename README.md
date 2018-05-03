@@ -42,7 +42,7 @@ To share user-events over multiple connected clients, you simply add the followi
 
 
 ## Code
-The code contains three parts:
+The code is broken into three parts:
 * lib/client: A small client side framework to render HTML and do 2-way databinding with data objects
 * lib/server: A small server side framework using websockets to share events between different browser clients
 * lib/shared: A set of shared classes, written for convenience and as exploration of certain concepts 
