@@ -7,6 +7,84 @@ This Proof of Concept is a personal project and created to explore simple ways t
 
 It is written as a personal exploration of what can be done with simple means. 
 
+## Creating a component
+To create a component, you define the template HTML and the component-specific settings. In tis case, we have some sub components.
+
+```typescript
+// Imports...
+// Render-method, so we keep the component itself clean.
+const renderPersonHtml=(component:BaseComponent,person:Person)=>{
+
+    // PersonDirective simply returns rendered HTML, based on the input
+    // This simplifies 
+    let personDirective=new PersonDirective();
+
+    // Template. The attributes object-type and obect-reference will be used as starting points for 2-way data binding
+    let html=`<div 
+        object-type="Person" 
+        object-reference="${person.personId}">
+        ${personDirective.render(person)}
+        <!-- Assets! -->
+        <div inject="assets" data-model=""></div>
+        <!--Show popup from code in component!-->
+        <button click="component.showPopup(${person.personId});">Popup!</button>
+        <!-- Input! -->
+        <p><input type="text" data-binding="firstname"><input type="text" data-binding="lastname"></p>
+    </div>`
+
+    // This will inject the HTML into our parent component
+    return component.injectIntoTargetElement(html);
+}
+
+export class DragBoxModule extends BaseComponent{
+
+    personService:PersonService;
+    socketClient:WebSocketConnector;
+
+    constructor(parentId:string,renderTarget?:string){
+
+        super({ 
+                parentId, // Who is the parent?
+                renderTarget, // Where do we render ourselves?
+                objects:[Person],// What data are we rendering?
+                subcomponents:[// Where do we wish to bind subcomponents?
+                    ["assets", AssetsComponent]
+                ]
+            }
+        ); 
+
+        // Define the data service and other bindings
+        this.personService=new PersonService();
+    }
+
+    // Render this module and all submodules
+    public render( model:IRenderModel){
+        // 
+        this.personService.getPersonById(model.personId).then((person:Person)=>{
+
+            // Update anything on screen, store in datastore
+            this.dataBinding.process([person],Person);
+
+            // Render, using the private method defined above class
+            // This will already create the bindings
+            let component=renderPersonHtml(this,person);
+
+            // This will render subcompoment
+            this.sub<AssetsComponent>("assets").target(component).render(person);
+        })
+    }
+
+    // Methods to bind 
+    public showPopup(personId){
+        alert("personId="+personId);
+    }
+
+
+}
+
+```
+
+
 ## Sharing objects
 To create the websocket connection client side, and receieve event messages, you can use:
 ```typescript
@@ -16,11 +94,11 @@ socketClient
     .openWebsocket('ws://localhost:2222')
     // Capture specific event
     .on("person:change",(message:WebSocketMessage)=>{
-        let person=message.body; // The object that was sent
         // Define object type
         const type={name:"Person", primaryKey:"personId"}
-        // Update the data store and update the HTML. Input is a list of objects
-        DataBinding.process(DataStore.get("myDatastore"), [person], type);
+        // Update the data store and update the HTML. Input is a list of objects, 
+        // in this case message.body contains the person that was sent
+        DataBinding.process(DataStore.get("myDatastore"), [message.body], type);
     })
 ```
 
