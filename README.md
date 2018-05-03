@@ -1,8 +1,8 @@
 # Real time, cross browser interactons with simple socket server and web client
 
 ## About
-This Proof of Concept is a personal project and created to explore simple ways to
-* Create two-way databinding in the front
+This Proof of Concept is a cleaned up skecth for a personal project that is created to explore simple ways to
+* Create two-way databinding in the front end
 * Make any change in the page visible on other browsers on other computers, using events sent as messages via websockets
 
 It is written as a personal exploration of what can be done with simple means. 
@@ -45,7 +45,7 @@ export class PersonComponent extends BaseComponent{
         super({ 
                 parentId, // Who is the parent?
                 renderTarget, // Where do we render ourselves?
-                objects:[Person],// What data are we rendering?
+                objects:[Person],// What object are we rendering?
                 subcomponents:[// Where do we wish to bind subcomponents?
                     ["assets", AssetsComponent]
                 ]
@@ -108,7 +108,7 @@ socketClient
     })
 ```
 
-To share user-events over multiple connected clients, you simply add the following code (example) to the constructor of your component:
+To dispatch user-events over multiple connected clients, you simply add the following code (example) to the constructor of your component:
 
 ```typescript
     // Get socket client
