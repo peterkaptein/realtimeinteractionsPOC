@@ -70,7 +70,7 @@ export class PersonComponent extends BaseComponent{
 
             // Render, using the private method 
             // This will already create the 2-way bindings
-            let component=renderPersonHtml(this,person);
+            const component=renderPersonHtml(this,person);
 
             // This will render subcompoment
             this.sub<AssetsComponent>("assets").target(component).render(person);
@@ -86,7 +86,7 @@ export class PersonComponent extends BaseComponent{
 }
 
 ```
-## Binding the component to HTML
+## Binding the component to our static HTML page
 Once defined, it can be bound to HTML in the following way, assuming that we have an elemnt in our HTML with the ID "myHtmlElementId":
 ```typescript
         // Create and bind module
@@ -96,7 +96,7 @@ Once defined, it can be bound to HTML in the following way, assuming that we hav
         personComponent.render({personId:"1"});
 ```
 ## Sharing objects
-To create the websocket connection client side, and receieve event messages, you can use:
+To create the websocket connection on the client side, and to receive and handle specific (user)event messages, you can use:
 ```typescript
 const socketClient=new WebSocketConnector(["item:mousemove","item:textinput","person:change"],"socketclientA");
 // Open socket client and bind events from other clients to concrete actions
@@ -112,7 +112,7 @@ socketClient
     })
 ```
 
-To dispatch user-events over multiple connected clients, you simply add the following code (example) to the constructor of your component:
+To dispatch (user)events messages, to be received by any other connected client that is subscribed to the subject(s), you simply add the following code (example) to the constructor of your component:
 
 ```typescript
     // Get socket client
