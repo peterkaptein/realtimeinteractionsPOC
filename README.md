@@ -28,7 +28,7 @@ const renderPersonHtml=(component:BaseComponent,person:Person)=>{
         object-type="Person" 
         object-reference="${person.personId}">
         ${personDirective.render(person)}
-        <!-- Assets! -->
+        <!-- Assets, rendered with a sub-component! -->
         <div inject="assets" data-model=""></div>
         <!--Show popup from code in component!-->
         <button click="component.showPopup(${person.personId});">Popup!</button>
