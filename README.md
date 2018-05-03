@@ -5,10 +5,10 @@ This Proof of Concept is a cleaned up skecth for a personal project that is crea
 * Create two-way databinding in the front end
 * Make any change in the page visible on other browsers on other computers, using events sent as messages via websockets
 
-It is written as a personal exploration of what can be done with simple means. 
+It is written as a personal exploration of what can be done with simple means and straight forward code. 
 
 ## Creating a component
-To create a component, you define the template HTML and the component-specific settings. In tis case, we have some sub components.
+To create a component, you define the template HTML and the component-specific settings. In this case, we have some sub components.
 
 ```typescript
 // Imports...
@@ -20,6 +20,10 @@ const renderPersonHtml=(component:BaseComponent,person:Person)=>{
     let personDirective=new PersonDirective();
 
     // Template. The attributes object-type and obect-reference will be used as starting points for 2-way data binding
+    // The data-binding attributes on the input-elements will tell the framework what fields to bind to on the object
+    // Directives are simple sub-templates that can be re-used
+    // When we update this from outside, we replace parts of the HTML via databinding. 
+    // If we present another person, we simply re-render the entire html of this component
     let html=`<div 
         object-type="Person" 
         object-reference="${person.personId}">
@@ -32,7 +36,7 @@ const renderPersonHtml=(component:BaseComponent,person:Person)=>{
         <p><input type="text" data-binding="firstname"><input type="text" data-binding="lastname"></p>
     </div>`
 
-    // This will inject the HTML into our parent component
+    // This will create and return a Dom-object and inject the HTML into our parent component
     return component.injectIntoTargetElement(html);
 }
 
