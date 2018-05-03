@@ -1,12 +1,18 @@
 // tslint:disable:prefer-const
+/*
+    BaseComponent follows similar lines as Angular Components
+    where you can define a HTML template and bind and render subcomponents to build a web page
 
+    The main goal of this POC is to explore the possibilities of 2 way databinding using simple JavaScript, the DOM and HTML
+    This client side mini-framework is not intended for use outside of that scope
+*/
 import { Guid } from "../shared/Guid";
 import { DataBinding } from "./DataBinding";
 import { DataStore, IClass, IObjectDefintion } from "./DataStore";
 
 
 /**
- * Truly private method to instantiate and map subcomponents
+ * private method to instantiate and map subcomponents
  *
  * The binding to the render target in the component HTML is done via rendertarget
  *
