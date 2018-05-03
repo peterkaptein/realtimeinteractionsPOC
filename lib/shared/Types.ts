@@ -1,1 +1,2 @@
-export type CallBack = (data: any) => any;
+// Generic callback for Observers
+export type ObserverCallBack = (data: any) => any;

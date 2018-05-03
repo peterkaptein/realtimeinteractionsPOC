@@ -5,9 +5,10 @@ import { IMessageContent, WebSocketMessage } from "../../lib/server/websockets/W
 import { OutgoingWebsocketMessage } from "../../lib/server/websockets/WebsocketOutMessage";
 import { Guid } from "../../lib/shared/Guid";
 import { Observable, Observer } from "../../lib/shared/Observable";
+import { ObserverCallBack } from "../shared/Types";
 
-type WebSocketMessageEVent = (message: WebSocketMessage) => void;
-type CallBack = (data: any) => any;
+type WebSocketMessageEvent = (message: WebSocketMessage) => void;
+
 
 /**
  * The Websocket Connector provides a simple interface to send and receive messages
@@ -15,19 +16,6 @@ type CallBack = (data: any) => any;
  *
  * Using socketClient.on("eventname"), the programmer can add specific handlers to remote events to respond to.
  *
- * example:
- *
- *      var socketClient=new WebSocketConnector(["item:mousemove","item:textinput"],"socketclient");
- *      socketClient
- *           .openWebsocket("ws://localhost:2222")
- *           .on("item:mousemove",(message:WebSocketMessage)=>{
- *               let position=message.body;
- *               moveDiv(position);
- *           })
- *           .on("item:textinput",(message:WebSocketMessage)=>{
- *               let input=message.body;
- *               setText(input);
- *           })
  */
 
 export class WebSocketConnector {
@@ -49,7 +37,7 @@ export class WebSocketConnector {
     private webSocket: WebSocket;
     private guid = Guid.create();
     private observable: Observable;
-    private events: Map<string, Set<WebSocketMessageEVent>> = new Map();
+    private events: Map<string, Set<WebSocketMessageEvent>> = new Map();
     private subscribeMessage: OutgoingWebsocketMessage;
 
     /**
@@ -104,7 +92,7 @@ export class WebSocketConnector {
      * @param action the action to be performed when the event of the given name is received from the server
      * @param isGlobal we will register only one handler for this event
      */
-    public on(eventName: string, action: WebSocketMessageEVent, isGlobal: boolean = false): WebSocketConnector {
+    public on(eventName: string, action: WebSocketMessageEvent, isGlobal: boolean = false): WebSocketConnector {
         const events = this.events;
         if (!events.has(eventName)) {
             events.set(eventName, new Set());
@@ -231,7 +219,7 @@ export class WebSocketConnector {
      * @param success the method to handle the success data
      * @param error the method to handle the error data
      */
-    public subscribe(success: CallBack, error: CallBack): WebSocketConnector {
+    public subscribe(success: ObserverCallBack, error: ObserverCallBack): WebSocketConnector {
         this.observable.subscribe(success, error);
 
         // In case we want to chain more things to our websocket connector
