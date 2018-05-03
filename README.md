@@ -36,10 +36,9 @@ const renderPersonHtml=(component:BaseComponent,person:Person)=>{
     return component.injectIntoTargetElement(html);
 }
 
-export class DragBoxModule extends BaseComponent{
+export class PersonComponent extends BaseComponent{
 
     personService:PersonService;
-    socketClient:WebSocketConnector;
 
     constructor(parentId:string,renderTarget?:string){
 
@@ -83,8 +82,15 @@ export class DragBoxModule extends BaseComponent{
 }
 
 ```
+## Binding the component to HTML
+Once defined, it can be bound to HTML in the following way, assuming that we have an elemnt in our HTML with the ID "myHtmlElementId":
+```typescript
+        // Create and bind module
+        const personComponent = new PersonComponent("myHtmlElementId");
 
-
+        // Render the content
+        personComponent.render({personId:"1"});
+```
 ## Sharing objects
 To create the websocket connection client side, and receieve event messages, you can use:
 ```typescript
