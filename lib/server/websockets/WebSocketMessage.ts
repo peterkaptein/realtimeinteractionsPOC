@@ -47,7 +47,7 @@ export class WebSocketMessage implements IMessage {
         try {
             this.subjects = subjects.split(",");
         } catch (e) {
-            // POC: We ignore errors on faulty messages. No acton required
+            // POC: We ignore errors on faulty content. No acton required
         }
 
         // Done.
