@@ -1,5 +1,8 @@
-// tslint:disable:ban-types
+import { CallBack } from "./Types";
+
 // tslint:disable:prefer-const
+
+
 /**
  * Observable is a simple implementation of the Observer-pattern.
  * Created for exercisepurposes
@@ -7,7 +10,7 @@
 export class Observable {
 
     public observer: Observer;
-    constructor(observableProcess: Function, singleEvent: boolean = true, observable: Observable = null) {
+    constructor(observableProcess: (observer: Observer) => void , singleEvent: boolean = true, observable: Observable = null) {
 
         const observer = this.observer = new Observer(singleEvent);
 
@@ -25,7 +28,7 @@ export class Observable {
      * @param success method executed on success
      * @param error method executed on error
      */
-    public subscribe(success: Function, error: Function) {
+    public subscribe(success: CallBack, error: CallBack) {
         this.observer.add({ success, error });
 
         // In case we want to chain for whatever reason
@@ -91,6 +94,6 @@ export class Observer {
 
 
 interface IObserver {
-    success: Function;
-    error: Function;
+    success: CallBack;
+    error: CallBack;
 }

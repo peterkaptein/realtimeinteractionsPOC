@@ -1,4 +1,4 @@
-// tslint:disable:ban-types
+
 /**
  * List is using some principles from C# collections,
  * including some Linq convenience with sorting and transforming data
@@ -45,7 +45,7 @@ export class List<T> {
     /**
      * where() filters the existing list and returns a new set
      */
-    public where(filterMethod: Function): List<T> {
+    public where(filterMethod: (item: T) => boolean ): List<T> {
 
         // Get the items that comply to the where-clause given in the passed method
         const result: T[] = this.list.map((item, index, array) => {
@@ -91,7 +91,7 @@ export class List<T> {
      *
      * @param transformMethod : the method used to transform the data in the list to something else
      */
-    public transform(transformMethod: Function): any[] {
+    public transform(transformMethod: ( item: T, index: number) => any ): any[] {
         // This will return an array of any sort, based on the method we are executing
         const result: any[] = [];
 

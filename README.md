@@ -16,7 +16,6 @@ To create a component, you define the template HTML and the component-specific s
 const renderPersonHtml=(component:BaseComponent,person:Person)=>{
 
     // PersonDirective simply returns rendered HTML, based on the input
-    // This simplifies 
     let personDirective=new PersonDirective();
 
     // Template. The attributes object-type and obect-reference will be used as starting points for 2-way data binding
@@ -49,7 +48,7 @@ export class PersonComponent extends BaseComponent{
         super({ 
                 parentId, // Who is the parent?
                 renderTarget, // Where do we render ourselves?
-                objects:[Person],// What object are we rendering?
+                objects:[Person], // What object(s) are we rendering?
                 subcomponents:[// Where do we wish to bind subcomponents?
                     ["assets", AssetsComponent]
                 ]
@@ -62,7 +61,6 @@ export class PersonComponent extends BaseComponent{
 
     // Render this module and all submodules
     public render( model:IRenderModel){
-        // 
         this.personService.getPersonById(model.personId).then((person:Person)=>{
 
             // Update anything on screen, store in datastore
@@ -81,8 +79,6 @@ export class PersonComponent extends BaseComponent{
     public showPopup(personId){
         alert("personId="+personId);
     }
-
-
 }
 
 ```
@@ -112,7 +108,7 @@ socketClient
     })
 ```
 
-To dispatch (user)events messages, to be received by any other connected client that is subscribed to the subject(s), you simply add the following code (example) to the constructor of your component:
+To dispatch (user)event messages, to be received by any other connected client that is subscribed to the subject(s), you simply add the following code (example) to the constructor of your component:
 
 ```typescript
     // Get socket client

@@ -1,9 +1,8 @@
-// tslint:disable:ban-types
 // tslint:disable:prefer-const
 
 declare function require(name: string);
 
-import { IWebsocketServerProvider } from "../IWebsocketServerProvider";
+import { IWebsocketServerProvider, NewSocketCallback } from "../IWebsocketServerProvider";
 import { WebSocketClient } from "../WebSocketClient";
 // tslint:disable-next-line:no-var-requires
 const WebSocket = require("ws");
@@ -15,7 +14,7 @@ const WebSocket = require("ws");
  */
 export class WSProvider implements IWebsocketServerProvider {
 
-    public start(port: number, registerNewClient: Function) {
+    public start(port: number, registerNewClient: NewSocketCallback) {
         let ws = WebSocket;
         const wss = new WebSocket.Server({ port });
 

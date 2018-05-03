@@ -1,4 +1,3 @@
-// tslint:disable:ban-types
 // tslint:disable:prefer-const
 import { Guid } from "../../shared/Guid";
 import { QueueHandler } from "./QueueHandler";
@@ -23,9 +22,9 @@ export class WebSocketClient {
     public sendStatus: string = WebSocketClient.SEND_IDLE;
 
     // POC: shortcut solution
-    public messageHandler: Function;
-    public onClose: Function;
-    public sendHandler: Function;
+    public messageHandler: (message: WebSocketMessage) => void;
+    public onClose: (socketClient: WebSocketClient) => void;
+    public sendHandler: (messageString: string) => void;
 
     private messageQueue: QueueHandler;
     private queueHandler: QueueHandler;

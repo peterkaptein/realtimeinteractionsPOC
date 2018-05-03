@@ -1,4 +1,3 @@
-// tslint:disable:ban-types
 // tslint:disable:prefer-const
 import { WebSocketClient } from "./WebSocketClient";
 import { WebSocketMessage } from "./WebSocketMessage";

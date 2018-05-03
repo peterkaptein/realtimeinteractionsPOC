@@ -1,10 +1,13 @@
-// tslint:disable:ban-types
+
 // tslint:disable:object-literal-sort-keys
 // tslint:disable:prefer-const
 import { IMessageContent, WebSocketMessage } from "../../lib/server/websockets/WebSocketMessage";
 import { OutgoingWebsocketMessage } from "../../lib/server/websockets/WebsocketOutMessage";
 import { Guid } from "../../lib/shared/Guid";
 import { Observable, Observer } from "../../lib/shared/Observable";
+
+type WebSocketMessageEVent = (message: WebSocketMessage) => void;
+type CallBack = (data: any) => any;
 
 /**
  * The Websocket Connector provides a simple interface to send and receive messages
@@ -46,7 +49,7 @@ export class WebSocketConnector {
     private webSocket: WebSocket;
     private guid = Guid.create();
     private observable: Observable;
-    private events: Map<string, Set<Function>> = new Map();
+    private events: Map<string, Set<WebSocketMessageEVent>> = new Map();
     private subscribeMessage: OutgoingWebsocketMessage;
 
     /**
@@ -101,7 +104,7 @@ export class WebSocketConnector {
      * @param action the action to be performed when the event of the given name is received from the server
      * @param isGlobal we will register only one handler for this event
      */
-    public on(eventName: string, action: Function, isGlobal: boolean = false): WebSocketConnector {
+    public on(eventName: string, action: WebSocketMessageEVent, isGlobal: boolean = false): WebSocketConnector {
         const events = this.events;
         if (!events.has(eventName)) {
             events.set(eventName, new Set());
@@ -228,7 +231,7 @@ export class WebSocketConnector {
      * @param success the method to handle the success data
      * @param error the method to handle the error data
      */
-    public subscribe(success: Function, error: Function): WebSocketConnector {
+    public subscribe(success: CallBack, error: CallBack): WebSocketConnector {
         this.observable.subscribe(success, error);
 
         // In case we want to chain more things to our websocket connector

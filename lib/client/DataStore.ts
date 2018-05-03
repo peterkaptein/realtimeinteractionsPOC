@@ -1,6 +1,5 @@
 // tslint:disable:trailing-comma
 // tslint:disable:prefer-const
-// tslint:disable:ban-types
 /**
  * truly private method to produce a class defintion form the list
  * POC. To be moved to DataBinding class
@@ -14,7 +13,8 @@ const createClassDefinitions = (classes: IClass[]): IObjectDefintion[] => {
         resultobjectTypes.push({
             className: Class.name,
             create: (obj: any) => new Class(obj),
-            identityKey: Class.primaryKey }
+            identityKey: Class.primaryKey
+        }
         );
     }
     return resultobjectTypes;
@@ -163,11 +163,12 @@ export class DataStore {
 
 /**
  * The defintion of an object, stored in the data store
+ * We will create those on the fly, so definition is that of object, not of class
  */
 export interface IObjectDefintion {
     className: string; // The class name
     identityKey: string; // The name of the id field
-    create: Function;
+    create: (object: any) => any;
 }
 
 export interface IClass {
